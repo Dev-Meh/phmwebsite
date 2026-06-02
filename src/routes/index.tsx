@@ -35,36 +35,44 @@ export const Route = createFileRoute("/")({
 
 function HeroSlideshow() {
   const [current, setCurrent] = useState(0);
+  const slideCount = HERO_IMAGES.length;
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrent((prev) => (prev + 1) % HERO_IMAGES.length);
+      setCurrent((prev) => (prev + 1) % slideCount);
     }, 6000);
     return () => clearInterval(interval);
-  }, []);
+  }, [slideCount]);
 
   return (
     <section className="relative h-screen min-h-[640px] w-full overflow-hidden">
-      {/* Background images with crossfade */}
-      <div className="absolute inset-0">
-        {HERO_IMAGES.map(({ src, alt }, i) => (
-          <div
-            key={src}
-            className={`absolute inset-0 transition-opacity duration-[2000ms] ease-in-out ${
-              i === current ? "opacity-100" : "opacity-0"
-            }`}
-          >
-            <img
-              src={src}
-              alt={alt}
-              className="h-full w-full object-cover animate-slow-zoom"
-              width={1920}
-              height={1280}
-            />
-          </div>
-        ))}
-        <div className="absolute inset-0 bg-gradient-hero" />
-        <div className="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/20 to-transparent" />
+      {/* Background: slide right → left */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div
+          className="flex h-full transition-transform duration-1000 ease-in-out motion-reduce:transition-none"
+          style={{
+            width: `${slideCount * 100}%`,
+            transform: `translateX(-${(current * 100) / slideCount}%)`,
+          }}
+        >
+          {HERO_IMAGES.map(({ src, alt }) => (
+            <div
+              key={src}
+              className="relative h-full shrink-0"
+              style={{ width: `${100 / slideCount}%` }}
+            >
+              <img
+                src={src}
+                alt={alt}
+                className="h-full w-full object-cover"
+                width={1920}
+                height={1280}
+              />
+            </div>
+          ))}
+        </div>
+        <div className="pointer-events-none absolute inset-0 bg-gradient-hero" />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/20 to-transparent" />
       </div>
 
       {/* Slide indicators */}
