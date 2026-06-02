@@ -103,7 +103,7 @@ sudo nginx -t && sudo systemctl reload nginx
 
 - `https://yourdomain.com/` — church website, logo, music button
 - `https://yourdomain.com/our-events` — events from Django (published only)
-- `https://yourdomain.com/members/login/` — login
+- `https://yourdomain.com/phm-kuingia-a8f2/` — login (`LOGIN_URL_PATH` / `VITE_LOGIN_URL`)
 - `https://yourdomain.com/events/api/public/` — JSON `{"events":[...]}`
 
 ---

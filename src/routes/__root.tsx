@@ -117,10 +117,11 @@ const NAV = [
 ] as const;
 
 // Kiungo cha mfumo wa kanisa (Django).
-// Dev: weka VITE_LOGIN_URL=http://127.0.0.1:8000/ kwenye .env
-// Production (domain moja na Nginx): /members/login/ inatosha.
+// Dev: weka VITE_LOGIN_URL=http://127.0.0.1:8000/phm-kuingia-a8f2/ kwenye .env
+// Production: lazima iendane na LOGIN_URL_PATH kwenye Django .env
 const LOGIN_URL =
-  (import.meta.env.VITE_LOGIN_URL as string | undefined) || "/members/login/";
+  (import.meta.env.VITE_LOGIN_URL as string | undefined) ||
+  "/phm-kuingia-a8f2/";
 
 function Header() {
   const [open, setOpen] = useState(false);
